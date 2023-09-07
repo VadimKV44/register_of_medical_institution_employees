@@ -6,8 +6,8 @@ import 'package:register_of_medical_institution_employees/models/employee_model.
 import 'package:register_of_medical_institution_employees/models/person_model.dart';
 import 'package:register_of_medical_institution_employees/widgets/text_block_widget.dart';
 
-class EmployeesItemWidget extends StatelessWidget {
-  const EmployeesItemWidget({super.key, required this.employee,});
+class EmployeeItemWidget extends StatelessWidget {
+  const EmployeeItemWidget({super.key, required this.employee,});
 
   final Employee employee;
 

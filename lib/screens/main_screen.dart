@@ -27,7 +27,7 @@ class MainScreen extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: employees.length,
                 itemBuilder: (context, index) {
-                  return EmployeesItemWidget(
+                  return EmployeeItemWidget(
                     employee: employees[index],
                   );
                 },
