@@ -1,6 +1,7 @@
 # register_of_medical_institution_employees
 
 A new Flutter project.
+Flutter SDK version 3.10.3
 
 ## Getting Started
 

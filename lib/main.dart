@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:register_of_medical_institution_employees/screens/main_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Placeholder(),
+      home: MainScreen(),
     );
   }
 }
