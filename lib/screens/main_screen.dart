@@ -3,7 +3,8 @@ import 'package:register_of_medical_institution_employees/consts/colors.dart';
 import 'package:register_of_medical_institution_employees/models/employee_model.dart';
 import 'package:register_of_medical_institution_employees/models/patient_model.dart';
 import 'package:register_of_medical_institution_employees/models/person_model.dart';
-import 'package:register_of_medical_institution_employees/widgets/person_item_widget.dart';
+import 'package:register_of_medical_institution_employees/widgets/employees_item_widget.dart';
+import 'package:register_of_medical_institution_employees/widgets/patient_item_widget.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -26,7 +27,7 @@ class MainScreen extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: employees.length,
                 itemBuilder: (context, index) {
-                  return PersonItemWidget(
+                  return EmployeesItemWidget(
                     employee: employees[index],
                   );
                 },
@@ -36,7 +37,7 @@ class MainScreen extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: patients.length,
                 itemBuilder: (context, index) {
-                  return PersonItemWidget(
+                  return PatientItemWidget(
                     patient: patients[index],
                   );
                 },
