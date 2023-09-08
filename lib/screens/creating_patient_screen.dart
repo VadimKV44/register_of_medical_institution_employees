@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:register_of_medical_institution_employees/consts/colors.dart';
 import 'package:register_of_medical_institution_employees/consts/strings.dart';
 import 'package:register_of_medical_institution_employees/consts/styles.dart';
+import 'package:register_of_medical_institution_employees/local_storage/local_storage.dart';
 import 'package:register_of_medical_institution_employees/models/employee_model.dart';
-import 'package:register_of_medical_institution_employees/models/person_model.dart';
 import 'package:register_of_medical_institution_employees/widgets/custom_button_widget.dart';
 import 'package:register_of_medical_institution_employees/widgets/custom_drop_down_button_employees_widget.dart';
 import 'package:register_of_medical_institution_employees/widgets/custom_text_field.dart';
@@ -39,23 +39,6 @@ class _CreatingPatientScreenState extends State<CreatingPatientScreen> {
     _complaintsController.dispose();
     _diagnosisController.dispose();
   }
-
-  List<Employee> employees = [
-    Employee(
-      name: 'Иван Иванов',
-      age: 40,
-      gender: Gender.male,
-      specialization: 'Стоматолог',
-      patients: ['Аслан Коазаев', 'Давид Джелиев'],
-    ),
-    Employee(
-      name: 'Дмитрий Деметьев',
-      age: 50,
-      gender: Gender.male,
-      specialization: 'Терапевт',
-      patients: ['Катя Иванова'],
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +126,7 @@ class _CreatingPatientScreenState extends State<CreatingPatientScreen> {
                 ),
                 const SizedBox(height: 20.0),
                 CustomDropDownButtonEmployeesWidget(
-                  employees: employees,
+                  employees: LocalStorage.employees,
                   selectedEmployee: selectedEmployee,
                   onChanged: (value) {
                     setState(() {

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:register_of_medical_institution_employees/bloc/employee_cubit/employee_cubit.dart';
 import 'package:register_of_medical_institution_employees/screens/main_screen.dart';
 
 void main() {
@@ -10,8 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: MainScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<EmployeeCubit>(create: (BuildContext context) => EmployeeCubit()),
+      ],
+      child: const MaterialApp(
+        home: MainScreen(),
+      ),
     );
   }
 }
