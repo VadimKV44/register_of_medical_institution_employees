@@ -17,4 +17,6 @@ abstract class Strings {
   static const String patientComplaints = "Жалобы пациента:";
   static const String enterPatientsComplaints = "Введите жалобы пациента";
   static const String save = "Сохранить";
+  static const String failedUploadEmployeeData = "Не удалось загрузить данные о работниках ";
+  static const String failedUploadPatientData = "Не удалось загрузить данные о пациентах ";
 }
