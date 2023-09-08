@@ -57,7 +57,8 @@ class PatientCubit extends Cubit<PatientState> {
   }
 
   void savingPatient() {
-    patients?.add(
+    patients?.insert(
+      0,
       Patient(
         name: _name!,
         age: int.parse(_age!),

@@ -39,7 +39,10 @@ class ChoosingToCreateScreen extends StatelessWidget {
             const SizedBox(height: 20.0),
             CustomButtonWidget(
               onTap: () async {
-                await Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatingEmployeeScreen()));
+                final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatingEmployeeScreen()));
+                if (result == true && context.mounted) {
+                  Navigator.pop(context);
+                }
               },
               text: Strings.employee,
             ),
