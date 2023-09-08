@@ -9,4 +9,12 @@ abstract class Strings {
   static const String attendingDoctor = "Лечащий врач:";
   static const String male = "Мужской";
   static const String female = "Женский";
+  static const String patient = "Пациента";
+  static const String employee = "Работника";
+  static const String chooseWhoYouWantToAdd = "Выберите кого вы хотите добавить";
+  static const String enterNamesPatients = "Впишите имена пациентов";
+  static const String patientsList = "Список пациентов:";
+  static const String patientComplaints = "Жалобы пациента:";
+  static const String enterPatientsComplaints = "Введите жалобы пациента";
+  static const String save = "Сохранить";
 }

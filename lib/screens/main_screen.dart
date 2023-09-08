@@ -3,6 +3,7 @@ import 'package:register_of_medical_institution_employees/consts/colors.dart';
 import 'package:register_of_medical_institution_employees/models/employee_model.dart';
 import 'package:register_of_medical_institution_employees/models/patient_model.dart';
 import 'package:register_of_medical_institution_employees/models/person_model.dart';
+import 'package:register_of_medical_institution_employees/screens/choosing_to_create_screen.dart';
 import 'package:register_of_medical_institution_employees/widgets/employees_item_widget.dart';
 import 'package:register_of_medical_institution_employees/widgets/patient_item_widget.dart';
 
@@ -14,8 +15,11 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: MainColors.kWhiteColor,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
+        backgroundColor: MainColors.kWhiteColor,
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const ChoosingToCreateScreen()));
+        },
+        child: const Icon(Icons.add, color: MainColors.kBlackColor),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -82,7 +86,6 @@ List<Patient> patients = [
       patients: ['Катя Иванова'],
     ),
   ),
-
   Patient(
     name: 'Аслан Коазаев',
     age: 26,
@@ -112,4 +115,3 @@ List<Patient> patients = [
     ),
   ),
 ];
-
