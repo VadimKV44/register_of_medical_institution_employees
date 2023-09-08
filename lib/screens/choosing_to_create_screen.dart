@@ -28,15 +28,18 @@ class ChoosingToCreateScreen extends StatelessWidget {
             ),
             const SizedBox(height: 40.0),
             CustomButtonWidget(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatingPatientScreen()));
+              onTap: () async {
+                final result = await Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatingPatientScreen()));
+                if (result == true && context.mounted) {
+                  Navigator.pop(context);
+                }
               },
               text: Strings.patient,
             ),
             const SizedBox(height: 20.0),
             CustomButtonWidget(
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatingEmployeeScreen()));
+              onTap: () async {
+                await Navigator.push(context, MaterialPageRoute(builder: (context) => const CreatingEmployeeScreen()));
               },
               text: Strings.employee,
             ),
