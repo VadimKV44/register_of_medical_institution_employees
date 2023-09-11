@@ -90,8 +90,12 @@ class _CreatingPatientScreenState extends State<CreatingPatientScreen> {
                         const SizedBox(width: 20.0),
                         IconButtonWidget(
                           onTap: () {
-                            BlocProvider.of<PatientCubit>(context).addingToComplaints(_complaintsController.text);
-                            _complaintsController.clear();
+                            bool showScaffoldMessage = BlocProvider.of<PatientCubit>(context).addComplaint(_complaintsController.text);
+                            if (showScaffoldMessage) {
+                              showCustomScaffoldMessage(context, Strings.thereIsAlreadySuchComplaint);
+                            } else {
+                              _complaintsController.clear();
+                            }
                           },
                           icon: Icons.add,
                         ),
@@ -118,7 +122,7 @@ class _CreatingPatientScreenState extends State<CreatingPatientScreen> {
                           return StringItemWidget(
                             text: BlocProvider.of<PatientCubit>(context).complaints[index],
                             deleteItem: () {
-                              BlocProvider.of<PatientCubit>(context).removeInComplaints(BlocProvider.of<PatientCubit>(context).complaints[index]);
+                              BlocProvider.of<PatientCubit>(context).removeComplaint(BlocProvider.of<PatientCubit>(context).complaints[index]);
                             },
                           );
                         },
@@ -147,13 +151,13 @@ class _CreatingPatientScreenState extends State<CreatingPatientScreen> {
                       children: [
                         CustomButtonWidget(
                           onTap: () {
-                            bool showScaffoldMessage = BlocProvider.of<PatientCubit>(context).checkingInputFields(
+                            bool showScaffoldMessage = BlocProvider.of<PatientCubit>(context).checkInputFields(
                               _nameController.text,
                               _ageController.text,
                               _diagnosisController.text,
                             );
                             if (showScaffoldMessage) {
-                              showCustomScaffoldMessage(context, 'Заполните все поля');
+                              showCustomScaffoldMessage(context, Strings.fillInAllFields);
                             }
                           },
                           text: Strings.save,

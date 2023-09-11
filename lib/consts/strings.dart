@@ -12,11 +12,14 @@ abstract class Strings {
   static const String patient = "Пациента";
   static const String employee = "Работника";
   static const String chooseWhoYouWantToAdd = "Выберите кого вы хотите добавить";
-  static const String enterNamesPatients = "Впишите имена пациентов";
+  static const String enterNamesPatients = "Впишите имя пациента";
   static const String patientsList = "Список пациентов:";
   static const String patientComplaints = "Жалобы пациента:";
   static const String enterPatientsComplaints = "Введите жалобы пациента";
   static const String save = "Сохранить";
   static const String failedUploadEmployeeData = "Не удалось загрузить данные о работниках ";
   static const String failedUploadPatientData = "Не удалось загрузить данные о пациентах ";
+  static const String patientNotFound = "Пациент не найден";
+  static const String fillInAllFields = "Заполните все поля";
+  static const String thereIsAlreadySuchComplaint = "Такая жалоба уже есть";
 }

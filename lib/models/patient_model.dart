@@ -3,6 +3,7 @@ import 'package:register_of_medical_institution_employees/models/person_model.da
 
 class Patient extends Person {
   Patient({
+    required super.id,
     required super.name,
     required super.age,
     required super.gender,

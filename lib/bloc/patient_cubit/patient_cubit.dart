@@ -4,11 +4,14 @@ import 'package:register_of_medical_institution_employees/models/employee_model.
 import 'package:register_of_medical_institution_employees/models/patient_model.dart';
 import 'package:register_of_medical_institution_employees/models/person_model.dart';
 import 'package:register_of_medical_institution_employees/repository/repository.dart';
+import 'package:uuid/uuid.dart';
 
 part 'patient_state.dart';
 
 class PatientCubit extends Cubit<PatientState> {
   PatientCubit() : super(PatientInitial());
+
+  var uuid = Uuid();
 
   Repository repository = Repository();
 
@@ -31,35 +34,45 @@ class PatientCubit extends Cubit<PatientState> {
   String? _diagnosis;
   Employee? selectedEmployee;
 
-  void addingToComplaints(String complaint) {
-    if (complaint.isNotEmpty) {
-      complaints.add(complaint);
-      emit(PatientInitial());
-    }
+  bool searchComplaint(String complaint) {
+    return complaints.contains(complaint);
   }
 
-  void removeInComplaints(String complaint) {
+  bool addComplaint(String complaint) {
+    bool showScaffoldMessage = false;
+    if (complaint.isNotEmpty) {
+      showScaffoldMessage = searchComplaint(complaint);
+      if (!showScaffoldMessage) {
+        complaints.add(complaint);
+      }
+      emit(PatientInitial());
+    }
+    return showScaffoldMessage;
+  }
+
+  void removeComplaint(String complaint) {
     complaints.removeWhere((element) => element == complaint);
     emit(PatientInitial());
   }
 
-  bool checkingInputFields(String name, String age, String diagnosis) {
+  bool checkInputFields(String name, String age, String diagnosis) {
     bool showScaffoldMessage = false;
     if (name.isNotEmpty && age.isNotEmpty && complaints.isNotEmpty && diagnosis.isNotEmpty && selectedEmployee != null) {
       _name = name;
       _age = age;
       _diagnosis = diagnosis;
-      savingPatient();
+      savePatient();
     } else {
       showScaffoldMessage = true;
     }
     return showScaffoldMessage;
   }
 
-  void savingPatient() {
+  void savePatient() {
     patients?.insert(
       0,
       Patient(
+        id: uuid.v1(),
         name: _name!,
         age: int.parse(_age!),
         gender: gender ? Gender.male : Gender.female,

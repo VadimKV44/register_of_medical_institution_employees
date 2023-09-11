@@ -25,6 +25,12 @@ class _CreatingEmployeeScreenState extends State<CreatingEmployeeScreen> {
   final TextEditingController _patientsController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<EmployeeCubit>(context).getPatients();
+  }
+
+  @override
   void dispose() {
     super.dispose();
     _nameController.dispose();
@@ -94,8 +100,12 @@ class _CreatingEmployeeScreenState extends State<CreatingEmployeeScreen> {
                         const SizedBox(width: 20.0),
                         IconButtonWidget(
                           onTap: () {
-                            BlocProvider.of<EmployeeCubit>(context).addingToPatients(_patientsController.text);
-                            _patientsController.clear();
+                            bool showScaffoldMessage = BlocProvider.of<EmployeeCubit>(context).addPatient(_patientsController.text);
+                            if (showScaffoldMessage) {
+                              showCustomScaffoldMessage(context, Strings.patientNotFound);
+                            } else {
+                              _patientsController.clear();
+                            }
                           },
                           icon: Icons.add,
                         ),
@@ -120,9 +130,9 @@ class _CreatingEmployeeScreenState extends State<CreatingEmployeeScreen> {
                         itemCount: BlocProvider.of<EmployeeCubit>(context).patients.length,
                         itemBuilder: (context, index) {
                           return StringItemWidget(
-                            text: BlocProvider.of<EmployeeCubit>(context).patients[index],
+                            text: BlocProvider.of<EmployeeCubit>(context).patients[index].name,
                             deleteItem: () {
-                              BlocProvider.of<EmployeeCubit>(context).removeInPatients(BlocProvider.of<EmployeeCubit>(context).patients[index]);
+                              BlocProvider.of<EmployeeCubit>(context).removePatient(BlocProvider.of<EmployeeCubit>(context).patients[index].id);
                             },
                           );
                         },
@@ -136,13 +146,13 @@ class _CreatingEmployeeScreenState extends State<CreatingEmployeeScreen> {
                       children: [
                         CustomButtonWidget(
                           onTap: () {
-                            bool showScaffoldMessage = BlocProvider.of<EmployeeCubit>(context).checkingInputFields(
+                            bool showScaffoldMessage = BlocProvider.of<EmployeeCubit>(context).checkInputFields(
                               _nameController.text,
                               _ageController.text,
                               _specializationController.text,
                             );
                             if (showScaffoldMessage) {
-                              showCustomScaffoldMessage(context, 'Заполните все поля');
+                              showCustomScaffoldMessage(context, Strings.fillInAllFields);
                             }
                           },
                           text: Strings.save,

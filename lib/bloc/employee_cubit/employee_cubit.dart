@@ -1,13 +1,18 @@
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:register_of_medical_institution_employees/models/employee_model.dart';
+import 'package:register_of_medical_institution_employees/models/patient_model.dart';
 import 'package:register_of_medical_institution_employees/models/person_model.dart';
 import 'package:register_of_medical_institution_employees/repository/repository.dart';
+import 'package:uuid/uuid.dart';
 
 part 'employee_state.dart';
 
 class EmployeeCubit extends Cubit<EmployeeState> {
   EmployeeCubit() : super(EmployeeInitial());
+
+  var uuid = Uuid();
 
   Repository repository = Repository();
 
@@ -23,41 +28,63 @@ class EmployeeCubit extends Cubit<EmployeeState> {
     }
   }
 
+  List<Patient>? _patients;
+
+  void getPatients() async {
+    _patients = await repository.getPatients();
+  }
+
+  Patient? searchPatient(String text) {
+    Patient? result;
+    if (_patients == null) {
+      getPatients();
+    } else {
+      result = _patients!.firstWhereOrNull((element) => element.name == text);
+    }
+    return result;
+  }
+
   String? _name;
   String? _age;
   bool gender = true; // gender true = male; gender false = female
   String? _specialization;
-  List<String> patients = [];
+  List<Patient> patients = [];
 
-  void addingToPatients(String complaint) {
-    if (complaint.isNotEmpty) {
-      patients.add(complaint);
-      emit(EmployeeInitial());
+  bool addPatient(String patientName) {
+    Patient? result;
+    if (patientName.isNotEmpty) {
+      result = searchPatient(patientName);
+      if (result != null) {
+        patients.add(result);
+        emit(EmployeeInitial());
+      }
     }
+    return result != null ? false : true;
   }
 
-  void removeInPatients(String complaint) {
-    patients.removeWhere((element) => element == complaint);
+  void removePatient(String patientId) {
+    patients.removeWhere((element) => element.id == patientId);
     emit(EmployeeInitial());
   }
 
-  bool checkingInputFields(String name, String age, String specialization) {
+  bool checkInputFields(String name, String age, String specialization) {
     bool showScaffoldMessage = false;
     if (name.isNotEmpty && age.isNotEmpty && specialization.isNotEmpty && patients.isNotEmpty) {
       _name = name;
       _age = age;
       _specialization = specialization;
-      savingEmployee();
+      saveEmployee();
     } else {
       showScaffoldMessage = true;
     }
     return showScaffoldMessage;
   }
 
-  void savingEmployee() {
+  void saveEmployee() {
     employees?.insert(
       0,
       Employee(
+        id: uuid.v1(),
         name: _name!,
         age: int.parse(_age!),
         gender: gender ? Gender.male : Gender.female,

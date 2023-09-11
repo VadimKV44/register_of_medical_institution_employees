@@ -7,7 +7,10 @@ import 'package:register_of_medical_institution_employees/models/person_model.da
 import 'package:register_of_medical_institution_employees/widgets/text_block_widget.dart';
 
 class EmployeeItemWidget extends StatelessWidget {
-  const EmployeeItemWidget({super.key, required this.employee,});
+  const EmployeeItemWidget({
+    super.key,
+    required this.employee,
+  });
 
   final Employee employee;
 
@@ -61,7 +64,7 @@ class EmployeeItemWidget extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 4.0),
                           child: Text(
-                            '${index + 1}) ${employee.patients?[index]}',
+                            '${index + 1}) ${employee.patients?[index].name}',
                             style: MainStyles.kBlackColorW300(16.0),
                           ),
                         );
