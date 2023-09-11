@@ -36,9 +36,7 @@ class EmployeeCubit extends Cubit<EmployeeState> {
 
   Patient? searchPatient(String text) {
     Patient? result;
-    if (_patients == null) {
-      getPatients();
-    } else {
+    if (_patients != null) {
       result = _patients!.firstWhereOrNull((element) => element.name == text);
     }
     return result;
