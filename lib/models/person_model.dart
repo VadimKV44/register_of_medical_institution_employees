@@ -1,4 +1,4 @@
-class Person {
+abstract class Person {
   Person({
     required this.id,
     required this.name,

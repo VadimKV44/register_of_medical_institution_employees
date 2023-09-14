@@ -1,4 +1,5 @@
 import 'package:register_of_medical_institution_employees/local_storage/local_storage.dart';
+import 'package:register_of_medical_institution_employees/models/doctor_model.dart';
 import 'package:register_of_medical_institution_employees/models/employee_model.dart';
 import 'package:register_of_medical_institution_employees/models/patient_model.dart';
 
@@ -15,6 +16,13 @@ class Repository {
     List<Patient>? result;
     await Future.delayed(const Duration(seconds: 3), () {
       result = LocalStorage.patients;
+    });
+    return result ?? [];
+  }
+  Future<List<Doctor>> getDoctors() async {
+    List<Doctor>? result;
+    await Future.delayed(const Duration(seconds: 4), () {
+      result = LocalStorage.doctors;
     });
     return result ?? [];
   }

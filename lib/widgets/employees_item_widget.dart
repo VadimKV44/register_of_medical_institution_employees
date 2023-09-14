@@ -54,24 +54,32 @@ class EmployeeItemWidget extends StatelessWidget {
                   Strings.patients,
                   style: MainStyles.kBlackColorW500(16.0),
                 ),
-                Expanded(
-                  child: SizedBox(
-                    height: 20.0,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: employee.patients?.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                          child: Text(
-                            '${index + 1}) ${employee.patients?[index].name}',
-                            style: MainStyles.kBlackColorW300(16.0),
+                (employee.patients ?? []).isNotEmpty
+                    ? Expanded(
+                        child: SizedBox(
+                          height: 20.0,
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: employee.patients?.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Text(
+                                  '${index + 1}) ${employee.patients?[index].name}',
+                                  style: MainStyles.kBlackColorW300(16.0),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.only(left: 4.0),
+                        child: Text(
+                          Strings.noPatients,
+                          style: MainStyles.kBlackColorW300(16.0),
+                        ),
+                      ),
               ],
             ),
           ],

@@ -22,4 +22,5 @@ abstract class Strings {
   static const String patientNotFound = "Пациент не найден";
   static const String fillInAllFields = "Заполните все поля";
   static const String thereIsAlreadySuchComplaint = "Такая жалоба уже есть";
+  static const String noPatients = "Нет пациентов";
 }

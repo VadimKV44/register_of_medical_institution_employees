@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
+import 'package:register_of_medical_institution_employees/models/doctor_model.dart';
+import 'package:register_of_medical_institution_employees/models/employee_adapter.dart';
 import 'package:register_of_medical_institution_employees/models/employee_model.dart';
 import 'package:register_of_medical_institution_employees/models/patient_model.dart';
 import 'package:register_of_medical_institution_employees/models/person_model.dart';
@@ -26,6 +28,15 @@ class EmployeeCubit extends Cubit<EmployeeState> {
     } else {
       emit(EmployeeSuccess());
     }
+  }
+
+  void doctorToEmployees(List<Doctor>? doctors) {
+    if (doctors != null && doctors.isNotEmpty) {
+      for (var item in doctors) {
+        employees?.add(DoctorAdapter().returnEmployee(item));
+      }
+    }
+    emit(EmployeeSuccess());
   }
 
   List<Patient>? _patients;
