@@ -5,6 +5,7 @@ import 'package:register_of_medical_institution_employees/models/doctor_model.da
 import 'package:register_of_medical_institution_employees/models/employee_adapter.dart';
 import 'package:register_of_medical_institution_employees/models/employee_model.dart';
 import 'package:register_of_medical_institution_employees/models/patient_model.dart';
+import 'package:register_of_medical_institution_employees/models/person_factory.dart';
 import 'package:register_of_medical_institution_employees/models/person_model.dart';
 import 'package:register_of_medical_institution_employees/repository/repository.dart';
 import 'package:uuid/uuid.dart';
@@ -90,17 +91,17 @@ class EmployeeCubit extends Cubit<EmployeeState> {
   }
 
   void saveEmployee() {
-    employees?.insert(
-      0,
-      Employee(
-        id: uuid.v1(),
-        name: _name!,
-        age: int.parse(_age!),
-        gender: gender ? Gender.male : Gender.female,
-        specialization: _specialization,
-        patients: patients,
-      ),
+    var person = PersonFactory(
+      workersType: WorkersType.employee,
+      id: uuid.v1(),
+      name: _name!,
+      age: int.parse(_age!),
+      gender: gender ? Gender.male : Gender.female,
+      specialization: _specialization,
+      patients: patients,
     );
+    employees?.insert(0, person as Employee);
+
     emit(EmployeeSuccess());
   }
 }
