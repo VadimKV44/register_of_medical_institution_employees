@@ -6,11 +6,9 @@ import 'package:register_of_medical_institution_employees/bloc/patient_cubit/pat
 import 'package:register_of_medical_institution_employees/consts/colors.dart';
 import 'package:register_of_medical_institution_employees/consts/strings.dart';
 import 'package:register_of_medical_institution_employees/consts/styles.dart';
-import 'package:register_of_medical_institution_employees/models/employee_model.dart';
-import 'package:register_of_medical_institution_employees/models/patient_model.dart';
 import 'package:register_of_medical_institution_employees/screens/choosing_to_create_screen.dart';
-import 'package:register_of_medical_institution_employees/widgets/employees_item_widget.dart';
-import 'package:register_of_medical_institution_employees/widgets/patient_item_widget.dart';
+import 'package:register_of_medical_institution_employees/widgets/employees_items_widget.dart';
+import 'package:register_of_medical_institution_employees/widgets/patient_items_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -74,22 +72,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       );
                     } else if (state is EmployeeSuccess) {
-                      List<Employee> employees = BlocProvider.of<EmployeeCubit>(context).employees!;
-
-                      employeesItemsWidget = Column(
-                        children: [
-                          ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: employees.length,
-                            itemBuilder: (context, index) {
-                              return EmployeeItemWidget(
-                                employee: employees[index],
-                              );
-                            },
-                          ),
-                        ],
-                      );
+                      employeesItemsWidget = EmployeesItemsWidget(employees: BlocProvider.of<EmployeeCubit>(context).employees!);
                     }
 
                     return employeesItemsWidget;
@@ -106,17 +89,7 @@ class _MainScreenState extends State<MainScreen> {
                         ),
                       );
                     } else if (state is PatientSuccess) {
-                      List<Patient> patients = BlocProvider.of<PatientCubit>(context).patients!;
-                      patientItemsWidget = ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: patients.length,
-                        itemBuilder: (context, index) {
-                          return PatientItemWidget(
-                            patient: patients[index],
-                          );
-                        },
-                      );
+                      patientItemsWidget = PatientItemsWidget(patients: BlocProvider.of<PatientCubit>(context).patients!);
                     }
 
                     return patientItemsWidget;
