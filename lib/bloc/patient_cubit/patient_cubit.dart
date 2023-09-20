@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:register_of_medical_institution_employees/models/employee_model.dart';
 import 'package:register_of_medical_institution_employees/models/patient_model.dart';
+import 'package:register_of_medical_institution_employees/models/person_factory.dart';
 import 'package:register_of_medical_institution_employees/models/person_model.dart';
 import 'package:register_of_medical_institution_employees/repository/repository.dart';
 import 'package:uuid/uuid.dart';
@@ -69,18 +70,17 @@ class PatientCubit extends Cubit<PatientState> {
   }
 
   void savePatient() {
-    patients?.insert(
-      0,
-      Patient(
-        id: uuid.v1(),
-        name: _name!,
-        age: int.parse(_age!),
-        gender: gender ? Gender.male : Gender.female,
-        complaints: complaints,
-        diagnosis: _diagnosis,
-        attendingDoctor: selectedEmployee,
-      ),
+    var person = PersonFactory(
+      workersType: WorkersType.patient,
+      id: uuid.v1(),
+      name: _name!,
+      age: int.parse(_age!),
+      gender: gender ? Gender.male : Gender.female,
+      complaints: complaints,
+      diagnosis: _diagnosis,
+      attendingDoctor: selectedEmployee,
     );
+    patients?.insert(0, person as Patient);
     emit(PatientSuccess());
   }
 }
